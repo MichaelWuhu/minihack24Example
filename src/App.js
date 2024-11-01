@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import "./App.css";
 import mhmeat from "./images/mhmeat.png";
+import Card from "./components/card";
+
 
 function App() {
-  const [monster, setMonter] = useState("");
+  const [monsterId, setMonterId] = useState("");
   const [monsterData, setMonsterData] = useState([]);
 
   const ENDPOINT = "https://mhw-db.com/monsters";
 
-  // this is a simple axios get request to the endpoint which returns all the monsters
+  // useEffect to get all monsters on page load
   useEffect(() => {
     axios
       .get(ENDPOINT)
@@ -20,14 +23,13 @@ function App() {
         console.log(err);
       });
   }, []);
-  //
+  // now we have the data from the API
 
   // defined functions to get monster by id
   async function getMonster(id) {
     try {
-      const res = await axios.get(`${ENDPOINT}/${id}`);
+      const res = await axios.get(`${ENDPOINT}/${id}`); // what is the ENDPOINT? --> mhw-db.com/monsters/:id
       setMonsterData([res.data]);
-      setMonter("");
     } catch (err) {
       console.log(err);
     }
@@ -36,8 +38,9 @@ function App() {
   // function to get all monsters
   async function getAllMonsters() {
     try {
-      const res = await axios.get(ENDPOINT);
+      const res = await axios.get(ENDPOINT); // ENDPOINT is mhw-db.com/monsters
       setMonsterData(res.data);
+      setMonterId("");
     } catch (err) {
       console.log(err);
     }
@@ -46,23 +49,42 @@ function App() {
   return (
     <div className="App">
       <div className="header">
-        <img src={mhmeat} alt="Monster Hunter Meat" />
+        <img src={mhmeat} alt="" />
         <h1>API Demo</h1>
       </div>
       <div>
+        {/* user inputs */}
         <input
           type="number"
-          value={monster}
-          onChange={(e) => setMonter(e.target.value)}
+          value={monsterId}
+          onChange={(e) => setMonterId(e.target.value)}
           placeholder="Enter Monster ID"
         />
-        <button
-          onClick={() => getMonster(monster)}
-        >
-          Get Monster by ID
-        </button>
-        <button onClick={getAllMonsters}>Get All Monsters</button>
+        <button onClick={()=>getMonster(monsterId)}>Get Monster by ID</button>
+        <button onClick={() => getAllMonsters()}>Get All Monsters</button>
+
+        {/* This displays the data on our screen */}
         <pre>{JSON.stringify(monsterData, null, 2)}</pre>
+
+        {monsterId==="" ? (
+          <div></div>
+        ) : (
+          <div>
+            <h2>How can we actually use the data though?</h2>
+            {/* Display the data in a card */}
+            <div className="card-container">
+              {monsterData.map((monster) => (
+                <Card
+                  key={monster.id}
+                  name={monster.name}
+                  type={monster.type}
+                  species={monster.species}
+                  description={monster.description}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
