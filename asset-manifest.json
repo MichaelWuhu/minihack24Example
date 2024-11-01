@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/minihack24demo/static/css/main.0fc0aeae.css",
+    "main.js": "/minihack24demo/static/js/main.18aef68c.js",
+    "static/js/453.1bc950dc.chunk.js": "/minihack24demo/static/js/453.1bc950dc.chunk.js",
+    "static/media/mhmeat.png": "/minihack24demo/static/media/mhmeat.14612e4002c90171d461.png",
+    "index.html": "/minihack24demo/index.html",
+    "main.0fc0aeae.css.map": "/minihack24demo/static/css/main.0fc0aeae.css.map",
+    "main.18aef68c.js.map": "/minihack24demo/static/js/main.18aef68c.js.map",
+    "453.1bc950dc.chunk.js.map": "/minihack24demo/static/js/453.1bc950dc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0fc0aeae.css",
+    "static/js/main.18aef68c.js"
+  ]
+}
